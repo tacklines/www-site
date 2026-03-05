@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { t } from './lib/i18n.js';
 
 @customElement('tl-site')
 export class TlSite extends LitElement {
@@ -12,11 +13,11 @@ export class TlSite extends LitElement {
       <header class="border-b border-slate-800">
         <nav class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
           <a href="/" class="text-xl font-bold tracking-tight text-white no-underline">
-            tacklines
+            ${t('nav.brand')}
           </a>
           <div class="flex gap-6 items-center">
             <a href="https://github.com/tacklines" class="text-sm text-slate-400 hover:text-white transition-colors no-underline">
-              GitHub
+              ${t('nav.github')}
             </a>
           </div>
         </nav>
@@ -26,12 +27,11 @@ export class TlSite extends LitElement {
         <!-- Hero -->
         <section class="max-w-5xl mx-auto px-6 py-24 text-center">
           <h1 class="text-5xl sm:text-6xl font-bold tracking-tight text-white leading-tight">
-            Workflows that<br />
-            <span class="text-brand-400">actually work.</span>
+            ${t('hero.title.line1')}<br />
+            <span class="text-brand-400">${t('hero.title.line2')}</span>
           </h1>
           <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Tools, workflows, and shared knowledge for software teams
-            building with AI. Open source, opinionated, practical.
+            ${t('hero.subtitle')}
           </p>
         </section>
 
@@ -39,25 +39,22 @@ export class TlSite extends LitElement {
         <section class="max-w-5xl mx-auto px-6 pb-24">
           <div class="grid gap-6 md:grid-cols-3">
             ${this._projectCard(
-              'Tackline',
-              'Agentic Workflows',
-              'A skill and agent framework for Claude Code. Composable primitives, persistent teams, and structured learning loops.',
-              'https://github.com/tyevans/tackline',
-              true
+              t('project.tackline.name'),
+              t('project.tackline.subtitle'),
+              t('project.tackline.description'),
+              'https://github.com/tyevans/tackline'
             )}
             ${this._projectCard(
-              'Seam',
-              'Human-AI Collaboration',
-              'A portal for collaborative sessions between humans and AI agents. Task coordination, shared context, real-time progress.',
-              'https://github.com/tacklines/seam',
-              true
+              t('project.seam.name'),
+              t('project.seam.subtitle'),
+              t('project.seam.description'),
+              'https://github.com/tacklines/seam'
             )}
             ${this._projectCard(
-              'Tacks',
-              'Task Management',
-              'Lightweight task tracking built for agentic workflows. Backlogs, sprints, and dependency-aware planning.',
-              'https://github.com/srmccray/tacks',
-              false
+              t('project.tacks.name'),
+              t('project.tacks.subtitle'),
+              t('project.tacks.description'),
+              'https://github.com/srmccray/tacks'
             )}
           </div>
         </section>
@@ -65,20 +62,16 @@ export class TlSite extends LitElement {
         <!-- What is it -->
         <section class="border-t border-slate-800">
           <div class="max-w-5xl mx-auto px-6 py-24">
-            <h2 class="text-2xl font-bold text-white mb-8">What is Tacklines?</h2>
+            <h2 class="text-2xl font-bold text-white mb-8">${t('about.title')}</h2>
             <div class="grid gap-8 md:grid-cols-2">
               <div>
                 <p class="text-slate-400 leading-relaxed">
-                  Tacklines is a collection of open-source tools and conventions
-                  that help software teams work effectively with AI agents.
-                  Not a framework you install &mdash; a set of patterns you adopt.
+                  ${t('about.paragraph1')}
                 </p>
               </div>
               <div>
                 <p class="text-slate-400 leading-relaxed">
-                  Born from real production workflows, each tool solves a
-                  specific problem: orchestrating agent work, managing tasks
-                  across sessions, and keeping humans in the loop where it matters.
+                  ${t('about.paragraph2')}
                 </p>
               </div>
             </div>
@@ -88,12 +81,12 @@ export class TlSite extends LitElement {
 
       <footer class="border-t border-slate-800">
         <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <span class="text-sm text-slate-500">&copy; ${new Date().getFullYear()} Tacklines</span>
+          <span class="text-sm text-slate-500">${t('footer.copyright', { year: new Date().getFullYear() })}</span>
           <a
             href="https://github.com/tacklines"
             class="text-sm text-slate-500 hover:text-slate-300 transition-colors no-underline"
           >
-            GitHub
+            ${t('nav.github')}
           </a>
         </div>
       </footer>
@@ -104,8 +97,7 @@ export class TlSite extends LitElement {
     name: string,
     subtitle: string,
     description: string,
-    url: string,
-    available: boolean
+    url: string
   ) {
     return html`
       <a
@@ -118,9 +110,6 @@ export class TlSite extends LitElement {
           <h3 class="text-lg font-semibold text-white group-hover:text-brand-400 transition-colors">
             ${name}
           </h3>
-          ${!available
-            ? html`<sl-badge variant="neutral" pill>coming soon</sl-badge>`
-            : html``}
         </div>
         <p class="text-sm font-medium text-brand-400 mb-3">${subtitle}</p>
         <p class="text-sm text-slate-400 leading-relaxed">${description}</p>
