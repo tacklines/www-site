@@ -1,0 +1,29 @@
+# Tacklines marketing site
+# Deploy: copy dist/ to /opt/tacklines/www and use this Caddyfile
+
+(tls_config) {
+	tls {
+		issuer acme {
+			dir https://acme.zerossl.com/v2/DV90
+			email ops@tacklines.com
+		}
+		issuer acme {
+			dir https://acme-v02.api.letsencrypt.org/directory
+			email ops@tacklines.com
+		}
+	}
+}
+
+www.tacklines.com {
+	import tls_config
+	redir https://tacklines.com{uri} permanent
+}
+
+tacklines.com {
+	import tls_config
+	encode gzip
+
+	root * /opt/tacklines/www
+	try_files {path} /index.html
+	file_server
+}
