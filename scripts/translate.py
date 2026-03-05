@@ -2,10 +2,11 @@
 """Batch-translate i18n strings via ollama translategemma:27b."""
 
 import json
+import os
 import sys
 import urllib.request
 
-OLLAMA_URL = "http://192.168.1.14:11434/api/chat"
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434") + "/api/chat"
 MODEL = "translategemma:27b"
 
 # English source strings (key -> value)
