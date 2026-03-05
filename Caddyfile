@@ -1,18 +1,7 @@
 # Tacklines marketing site
-# Deploy: copy dist/ to /opt/tacklines/www and use this Caddyfile
-
-(tls_config) {
-	tls {
-		issuer acme {
-			dir https://acme.zerossl.com/v2/DV90
-			email ops@tacklines.com
-		}
-		issuer acme {
-			dir https://acme-v02.api.letsencrypt.org/directory
-			email ops@tacklines.com
-		}
-	}
-}
+# These blocks are appended to the server's main Caddyfile.
+# TLS config (tls_config snippet) is defined in the server's root Caddyfile.
+# Deploy: npm run build, copy dist/ to /opt/tacklines/www, reload caddy.
 
 www.tacklines.com {
 	import tls_config
